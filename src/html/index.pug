@@ -8,4 +8,19 @@ block content
   include ./_modules/_preloader.pug
   include ./_modules/_website-outline.pug
   include ./_modules/_sketch-outline.pug
+  .l-page-navbar(style='    \
+  z-index: 2;\
+  position: absolute;\
+  display: flex;\
+  justify-content: space-around;\
+  width: 100%;\
+  font-size: 30px;\
+  opacity: 0.6;\
+  margin-top: 50px;')
+    .l-page-navbar-item Home
+    .l-page-navbar-item Game
+    .l-page-navbar-item Pilot
+    #l-page-navbar-item Wiki
+    .l-page-navbar-item Discord
+    .l-page-navbar-item My Account
   canvas(id="canvas-webgl", class="p-canvas-webgl")

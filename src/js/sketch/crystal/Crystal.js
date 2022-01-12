@@ -47,7 +47,6 @@ export default class Crystal extends THREE.Mesh {
     this.quaternionPrev = new THREE.Quaternion();
   }
   start(hex, normalMap, surfaceTex, fogTex) {
-    console.log(hex, this.material.uniforms.hsv, this.material.uniforms.hsv.value)
     this.material.uniforms.hsv.value.set(hex, 0.65, 0.0);
     this.material.uniforms.normalMap.value = normalMap;
     this.material.uniforms.surfaceTex.value = surfaceTex;

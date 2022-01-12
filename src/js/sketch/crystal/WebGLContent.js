@@ -34,7 +34,7 @@ const cameraPE = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 2);
 // ==========
 // Define unique variables
 //
-const CRYSTALS_COUNT = 20;
+const CRYSTALS_COUNT = 15;
 const FOGS_COUNT = 40;
 const crystals = [];
 const crystalSparkles = [];

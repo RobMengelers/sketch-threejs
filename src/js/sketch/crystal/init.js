@@ -9,6 +9,7 @@ export default async function() {
   const resolution = new THREE.Vector2();
   const panPosition = new THREE.Vector3();
   const canvas = document.getElementById('canvas-webgl');
+  const item = document.getElementById('l-page-navbar-item')
   const preloader = document.querySelector('.p-preloader');
   const dd = new Drag(resolution);
 
@@ -22,6 +23,7 @@ export default async function() {
     dd.touchStart(e);
   }
   const touchmove = (e) => {
+    console.log(e)
     dd.touchMove(e);
   }
   const touchend = (e) => {
@@ -47,6 +49,10 @@ export default async function() {
     window.addEventListener('touchmove', touchmove, { passive: false });
     window.addEventListener('touchend', touchend);
     window.addEventListener('resize', debounce(resizeWindow, 100));
+    item.addEventListener('click', (e) => {
+      //webglContent.play()
+      console.log(dd.touchMove(e))
+    })
   };
   const update = () => {
     dd.update(resolution);
