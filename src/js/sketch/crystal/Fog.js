@@ -51,6 +51,7 @@ export default class Fog extends THREE.Mesh {
     )
   }
   start(hex, fogTex, maskTex) {
+    console.log(hex)
     this.material.uniforms.hex.value = hex;
     this.material.uniforms.fogTex.value = fogTex;
     this.material.uniforms.maskTex.value = maskTex;

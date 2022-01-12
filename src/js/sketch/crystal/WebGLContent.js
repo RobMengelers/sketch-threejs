@@ -103,12 +103,12 @@ export default class WebGLContent {
         0,
         Math.sin(radian) * 35
       );
-      crystals[i].start(i / CRYSTALS_COUNT, crystalNormalMap, crystalSurfaceTex, crystalFogTex);
+      crystals[i].start((i / CRYSTALS_COUNT), crystalNormalMap, crystalSurfaceTex, crystalFogTex);
       scene.add(crystals[i]);
 
       crystalSparkles[i] = new CrystalSparkle();
       crystalSparkles[i].position.copy(crystals[i].position);
-      crystalSparkles[i].start(i / CRYSTALS_COUNT);
+      crystalSparkles[i].start((i / CRYSTALS_COUNT) );
       scene.add(crystalSparkles[i]);
     }
     for (var i = 0; i < FOGS_COUNT; i++) {
@@ -122,7 +122,7 @@ export default class WebGLContent {
         Math.sin(radian1) * radius
       );
       fogs[i].rotation.set(0, radian2, 0);
-      fogs[i].start(i / FOGS_COUNT, crystalFogTex);
+      fogs[i].start((i / FOGS_COUNT), crystalFogTex);
       scene.add(fogs[i]);
     }
 
