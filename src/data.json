@@ -6,13 +6,19 @@
   },
   "pages": {
     "crystal": {
-      "title": "crystal",
+      "title": "Home",
       "id": "crystal",
       "description": "make the crystal that has the aura inside of self.",
-      "path": "/sketch/crystal.html",
+      "path": "../index.html",
       "posted": "2019.6.23",
       "update": "2019.6.29",
       "color": "white"
+    },
+    "game": {
+      "title": "Game",
+      "id": "game",
+      "path": "../game.html",
+      "hex": "0.5"
     }
   }
 }

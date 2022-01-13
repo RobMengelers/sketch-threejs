@@ -1,7 +1,7 @@
 block vars
 
-include ../_mixin/_common.pug
-include ../_mixin/_svg.pug
+//- include ../_mixin/_common.pug
+//- include ../_mixin/_svg.pug
 
 doctype html
 html(lang="ja")
@@ -9,20 +9,21 @@ html(lang="ja")
     include ../_layout/_head.pug
   body
     .l-page(
-      class = (page.color == "white") ? 'l-page--white' : 'l-page--black',
-      data-id = page.id
+      class = 'l-page--white',
+      data-id = page.id,
+      data-hex = page.hex
     )
       block content
-      - if (page.id !== 'index')
-        .p-utility-menu
-          a.c-button(
-            href = "/sketch-threejs/",
-            class = (page.color == "white") ? 'c-button--white' : 'c-button--black',
-            )
-            span.c-button__icon.c-button__icon--back(
-              class = (page.color == "white") ? 'c-button__icon--white' : 'c-button__icon--black'
-              )
-            span.c-button__label
-              +splitStr('back', 'js-split-str')
+      //- - if (page.id !== 'index')
+      //-   .p-utility-menu
+      //-     a.c-button(
+      //-       href = "/sketch-threejs/",
+      //-       class = (page.color == "white") ? 'c-button--white' : 'c-button--black',
+      //-       )
+      //-       span.c-button__icon.c-button__icon--back(
+      //-         class = (page.color == "white") ? 'c-button__icon--white' : 'c-button__icon--black'
+      //-         )
+      //-       span.c-button__label
+      //-         +splitStr('back', 'js-split-str')
     block scripts
-    script(src="/sketch-threejs/js/main.js")
+    script(src="../js/main.js")
