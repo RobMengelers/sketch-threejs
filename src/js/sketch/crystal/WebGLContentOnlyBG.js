@@ -35,7 +35,6 @@ const cameraPE = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 2);
 const FOGS_COUNT = 40;
 const fogs = [];
 
-
 const bg = new Background();
 
 // For the post effect.
@@ -96,14 +95,14 @@ export default class WebGLContent {
     stop() {
         this.pause();
     }
-    play(dd) {
+    play() {
         clock.start();
-        this.update(dd);
+        this.update();
     }
     pause() {
         clock.stop();
     }
-    update(dd) {
+    update() {
         // When the clock is stopped, it stops the all rendering too.
         if (clock.running === false) return;
 

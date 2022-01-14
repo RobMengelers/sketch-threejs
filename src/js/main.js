@@ -13,7 +13,7 @@ canvas.addEventListener('selectstart', function (event) {
 
 switch (pageId) {
     case "crystal": require('./sketch/crystal/init.js').default(); break;
-    case "game": require('./sketch/crystal/initOnlyBG.js').default(); require('./sketch/crystal/MouseSimulator.js'); break;
+    case "bg-only": require('./sketch/crystal/initOnlyBG.js').default(); break;
     default:
 }
 

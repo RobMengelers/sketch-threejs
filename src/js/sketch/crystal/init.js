@@ -5,9 +5,6 @@ import WebGLContent from './WebGLContent';
 import Drag from './Drag';
 
 export default async function () {
-  let coordX = 0; // Moving from the left side of the screen
-  let coordY = window.innerHeight / 2; // Moving in the center
-
   var isAutoMoving = false;
 
   const webglContent = new WebGLContent();
@@ -34,58 +31,78 @@ export default async function () {
     dd.touchEnd(e);
   }
 
-  const move = () => {
-    // Move step = 20 pixels
-    coordX += 20;
-    // Create new mouse event
-    let ev = new MouseEvent("mousemove", {
-      view: window,
-      bubbles: true,
-      cancelable: true,
-      clientX: coordX,
-      clientY: coordY
-    });
-
-    // Send event
-    canvas.dispatchEvent(ev);
-    // If the current position of the fake "mouse" is less than the width of the screen - let's move
-    if (coordX < 6000) {
-      console.log("hoi")
-      setTimeout(() => {
-        move();
-      }, 10);
-    } else {
-      panPosition.set(0, 0, 0);
-      webglContent.pan(panPosition);
-      console.log("done")
-    }
-  }
-
   const on = () => {
-    if (!isAutoMoving) {
-      canvas.addEventListener('mousedown', touchstart, { passive: false });
-      window.addEventListener('mousemove', (e) => {
-        touchmove(e);
+    canvas.addEventListener('mousedown', touchstart, { passive: false });
+    canvas.addEventListener('mousemove', (e) => {
+      touchmove(e);
+      if (!isAutoMoving) {
         panPosition.set(
           (e.clientX / resolution.x * 2 - 1) * 0.1,
           (-e.clientY / resolution.y * 2 + 1) * 0.1,
           0
         );
         webglContent.pan(panPosition);
-      });
-      document.addEventListener('mouseleave', (e) => {
-        panPosition.set(0, 0, 0);
-        webglContent.pan(panPosition);
-      });
-      window.addEventListener('mouseup', touchend);
-      canvas.addEventListener('touchstart', touchstart, { passive: false });
-      window.addEventListener('touchmove', touchmove, { passive: false });
-      window.addEventListener('touchend', touchend);
-      window.addEventListener('resize', debounce(resizeWindow, 100));
-    }
+      }
+    });
+    document.addEventListener('mouseleave', (e) => {
+      panPosition.set(0, 0, 0);
+      webglContent.pan(panPosition);
+    });
+    canvas.addEventListener('mouseup', touchend);
+    canvas.addEventListener('touchstart', touchstart, { passive: false });
+    window.addEventListener('touchmove', touchmove, { passive: false });
+    window.addEventListener('touchend', touchend);
+    window.addEventListener('resize', debounce(resizeWindow, 100));
+
+    let linearSimulationTimer;
+    let calcX = 0, calcY = window.innerHeight / 2;
+
     button.addEventListener('click', (e) => {
       isAutoMoving = true;
-      move()
+      if (linearSimulationTimer) {
+        clearInterval(linearSimulationTimer);
+        linearSimulationTimer = null;
+
+        const mouseUpEvent = new MouseEvent('mouseup', {
+          bubbles: true,
+          cancelable: true,
+        });
+
+        canvas.style.pointerEvents = ""
+        canvas.dispatchEvent(mouseUpEvent);
+        isAutoMoving = false
+
+      } else {
+        const mouseDownEvent = new MouseEvent('mousedown', {
+          clientX: calcX,
+          clientY: calcY,
+          pageX: 0,
+          pageY: 0,
+          bubbles: true,
+          cancelable: true,
+          view: window
+        });
+        canvas.dispatchEvent(mouseDownEvent);
+        panPosition.set(0, 0, 0);
+        webglContent.pan(panPosition);
+
+        canvas.style.pointerEvents = "none"
+
+        linearSimulationTimer = setInterval(() => {
+          calcX += 40;
+          console.log(MouseEvent(clientX))
+          const mouseMoveEvent = new MouseEvent('mousemove', {
+            clientX: calcX,
+            clientY: calcY,
+            pageX: 0,
+            pageY: 0,
+            bubbles: true,
+            cancelable: true,
+            view: window
+          });
+          canvas.dispatchEvent(mouseMoveEvent);
+        }, 50);
+      }
     })
   };
   const update = () => {
